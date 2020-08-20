@@ -1,7 +1,17 @@
 #from tkinter import Tk, Label, Button,Frame,LabelFrame,Menu,Toplevel
+from word_func import*
+from values import*
 from tkinter.ttk import *
 from tkinter import*
 from tkinter import font
+import time
+
+
+
+
+
+
+
 
 class HackApp:
     def __init__(self, master):
@@ -9,9 +19,19 @@ class HackApp:
         master.title("Hacker-APP")
         master.geometry("900x500")
         master.configure(bg="red")
+        
         #Fonts
         self.label_frame_font = font.Font(family="Helvetica",size=10,weight="bold")
         self.frame2_font = font.Font(family="Franklin Gothic Medium",size=10)
+
+      #check variables
+        CheckVar1 = IntVar()
+        CheckVar2 = IntVar()
+        CheckVar3 = IntVar()
+        CheckVar4 = IntVar()
+        
+
+        
 
         #full window row configure
         master.grid_rowconfigure(0, weight=1)
@@ -83,11 +103,11 @@ class HackApp:
         
         
         #componants for frame 1
-        self.check_btn1 = Checkbutton(self.frame_comp_1,text="Numbers",padx=50,pady=30,bg="#232526",fg="white",selectcolor="#0F2027",activebackground="#232526")
-        self.check_btn2 = Checkbutton(self.frame_comp_1,text="Alphabets (A)",padx=50,pady=20,bg="#232526",fg="white",selectcolor="#0F2027",activebackground="#232526")
-        self.check_btn3 = Checkbutton(self.frame_comp_1,text="Alphabets (a)",padx=50,pady=20,bg="#232526",fg="white",selectcolor="#0F2027",activebackground="#232526")
-        self.check_btn4 = Checkbutton(self.frame_comp_1,text="Special Characters",padx=50,pady=20,bg="#232526",fg="white",selectcolor="#0F2027",activebackground="#232526")
-        self.frame1_btn = Button(self.frame_left,text="Continue",height = 2, width = 8,bg="#232526",fg="white")
+        self.check_btn1 = Checkbutton(self.frame_comp_1,text="Numbers",variable = CheckVar1,onvalue = 1, offvalue = 0,padx=50,pady=30,bg="#232526",fg="white",selectcolor="#0F2027",activebackground="#232526")
+        self.check_btn2 = Checkbutton(self.frame_comp_1,text="Alphabets (A)",variable = CheckVar2,onvalue = 1, offvalue = 0,padx=50,pady=20,bg="#232526",fg="white",selectcolor="#0F2027",activebackground="#232526")
+        self.check_btn3 = Checkbutton(self.frame_comp_1,text="Alphabets (a)",variable = CheckVar3,onvalue = 1, offvalue = 0,padx=50,pady=20,bg="#232526",fg="white",selectcolor="#0F2027",activebackground="#232526")
+        self.check_btn4 = Checkbutton(self.frame_comp_1,text="Special Characters",variable = CheckVar4,onvalue = 1, offvalue = 0,padx=50,pady=20,bg="#232526",fg="white",selectcolor="#0F2027",activebackground="#232526")
+        self.frame1_btn = Button(self.frame_left,text="Continue",height = 2, width = 8,bg="#232526",fg="white",command=lambda:calc_message_1())
 
         #componants grid
         self.check_btn1.grid(row=0,column=0,sticky="w")
@@ -109,22 +129,22 @@ class HackApp:
         #END#####################################################################################
 
 
-        #Componants for frame 1 #######################################################################
-         #componants 1 frame
+        #Componants for frame 2 #######################################################################
+         #componants 2 frame
         self.frame_comp_2 = Frame(self.frame_center,bg="#232526")
         #componants 1 frame row config
         self.frame_comp_2.grid_rowconfigure(0, weight=1)
         self.frame_comp_2.grid_rowconfigure(1, weight=1)
         self.frame_comp_2.grid_rowconfigure(2, weight=1)
         self.frame_comp_2.grid_rowconfigure(3, weight=1)
-        #componants 1 frame column config
+        #componants 2 frame column config
         self.frame_comp_2.columnconfigure(0, weight=1)
-        #componants 1 frame grid
+        #componants 2 frame grid
         self.frame_comp_2.grid(row=0,column=0,sticky="nsew")
         
         
         
-        #componants for frame 1
+        #componants for frame 2
         self.label_frame_2 = Label(self.frame_comp_2,text="MINIMUM WORD LENGTH",padx=50,pady=30,bg="#232526",fg="white",font=self.frame2_font)
         self.label2_frame_2 = Label(self.frame_comp_2,text="MAXIMUM WORD LENGTH",padx=50,pady=25,bg="#232526",fg="white",font=self.frame2_font)
         self.entry_frame_2 = Entry(self.frame_comp_2,bg="#0F2027",fg="white")
@@ -151,8 +171,8 @@ class HackApp:
         #END#####################################################################################
 
 
-        #Componants for frame 1 #######################################################################
-         #componants 1 frame
+        #Componants for frame 3 #######################################################################
+         #componants 3 frame
         self.frame_comp_3 = Frame(self.frame_right,bg="#232526")
         #componants 1 frame row config
         self.frame_comp_3.grid_rowconfigure(0, weight=1)
@@ -166,15 +186,15 @@ class HackApp:
         
         
         
-        #componants for frame 1
+        #componants for frame 3
         self.label_frame_3 = Label(self.frame_comp_3,text="STATUS",padx=50,pady=30,bg="#232526",fg="white",font=self.frame2_font)
         self.frame3_progress1 = Progressbar(self.frame_comp_3, orient = HORIZONTAL, length = 200, mode = 'determinate')
         self.frame3_progress2 = Progressbar(self.frame_comp_3, orient = HORIZONTAL, length = 200, mode = 'determinate')
         self.frame3_progress3 = Progressbar(self.frame_comp_3, orient = HORIZONTAL, length = 200, mode = 'determinate')
         self.frame3_btn = Button(self.frame_right,text="Continue",height = 2, width = 8,bg="#232526",fg="white")
-        self.frame3_progress1['value']=25
-        self.frame3_progress2['value']=50
-        self.frame3_progress3['value']=75
+        
+        self.frame3_progress2['value']=progress_value2
+        self.frame3_progress3['value']=progress_value3
         
 
         #componants grid
@@ -216,6 +236,45 @@ class HackApp:
         
         self.frame_comp_6 = Frame(self.frame_right2,bg="#232526")
         self.frame_comp_6.grid(row=0,column=0,sticky="nsew")
+
+
+        #functions###################################################
+
+
+        def progress_func1():
+            for i in range (100):
+                self.frame3_progress1['value'] = i
+                self.master.update_idletasks()
+
+        
+        def calc_message_1():
+            confirm = messagebox.askquestion("Confirm","Are you sure?")
+            if confirm == 'yes':
+                count_secreate1=0
+                count_secreate2=0
+                count_secreate3=0
+                count_secreate4=0
+                if  CheckVar1.get() == 1:
+                    count_secreate1=1
+                if  CheckVar2.get() == 1:
+                    count_secreate2=1
+                if  CheckVar3.get() == 1:
+                    count_secreate3=1
+                if  CheckVar4.get() == 1:
+                    count_secreate4=1
+                    
+                progress_func1()
+                submit_message_1()
+                print(count_secreate1)
+                print(count_secreate2)
+                print(count_secreate3)
+                print(count_secreate4)
+            else:
+                submit_cancel_1()
+        
+
+
+#end#######################################################
         #END
 
         
