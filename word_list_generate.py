@@ -102,7 +102,7 @@ class HackApp:
         self.check_btn2 = Checkbutton(self.frame_comp_1,text="Alphabets (A)",variable = CheckVar2,onvalue = 1, offvalue = 0,padx=50,pady=20,bg="#232526",fg="white",selectcolor="#0F2027",activebackground="#232526")
         self.check_btn3 = Checkbutton(self.frame_comp_1,text="Alphabets (a)",variable = CheckVar3,onvalue = 1, offvalue = 0,padx=50,pady=20,bg="#232526",fg="white",selectcolor="#0F2027",activebackground="#232526")
         self.check_btn4 = Checkbutton(self.frame_comp_1,text="Special Characters",variable = CheckVar4,onvalue = 1, offvalue = 0,padx=50,pady=20,bg="#232526",fg="white",selectcolor="#0F2027",activebackground="#232526")
-        self.frame1_btn = Button(self.frame_left,text="Continue",height = 2, width = 8,bg="#232526",fg="white",command=lambda:progress_func1())
+        self.frame1_btn = Button(self.frame_left,text="Refresh",height = 2, width = 8,bg="#232526",fg="white",command=lambda:progress_func1())
 
         #componants grid
         self.check_btn1.grid(row=0,column=0,sticky="w")
@@ -145,7 +145,7 @@ class HackApp:
         self.entry_frame_2 = Entry(self.frame_comp_2,bg="#0F2027",fg="white",textvariable = ButtonVar1)
         self.entry2_frame_2 = Entry(self.frame_comp_2,bg="#0F2027",fg="white",textvariable = ButtonVar2)
        
-        self.frame2_btn = Button(self.frame_center,text="Continue",height = 2, width = 8,bg="#232526",fg="white",command=lambda:progress_func2())
+        self.frame2_btn = Button(self.frame_center,text="Refresh",height = 2, width = 8,bg="#232526",fg="white",command=lambda:progress_func2())
 
         #componants grid
         self.label_frame_2.grid(row=0,column=0,sticky="w")
@@ -186,7 +186,7 @@ class HackApp:
         self.frame3_progress1 = Progressbar(self.frame_comp_3, orient = HORIZONTAL, length = 200, mode = 'determinate')
         self.frame3_progress2 = Progressbar(self.frame_comp_3, orient = HORIZONTAL, length = 200, mode = 'determinate')
         self.frame3_progress3 = Progressbar(self.frame_comp_3, orient = HORIZONTAL, length = 200, mode = 'determinate')
-        self.frame3_btn = Button(self.frame_right,text="Continue",height = 2, width = 8,bg="#232526",fg="white",command=lambda:send_set())
+        self.frame3_btn = Button(self.frame_right,text="Refresh",height = 2, width = 8,bg="#232526",fg="white",command=lambda:progress_func3())
         
         self.frame3_progress2['value']=progress_value2
         self.frame3_progress3['value']=progress_value3
@@ -221,7 +221,7 @@ class HackApp:
         #frame 5#####################################################################################
         self.frame_center2.grid_rowconfigure(0, weight=1)
         self.frame_center2.columnconfigure(0, weight=1)
-        self.frame5_button = Button(self.frame_center2,text="Export",height = 2, width = 8,bg="#232526",fg="white")
+        self.frame5_button = Button(self.frame_center2,text="Export",height = 2, width = 8,bg="#232526",fg="white",command=lambda:send_set())
         self.frame5_button.grid(row=0,column=0,sticky="nsew")
         #END
         
@@ -240,14 +240,35 @@ class HackApp:
             for i in range (100):
                 self.frame3_progress1['value'] = i
                 self.master.update_idletasks()
+            self.check_btn1.deselect()
+            self.check_btn2.deselect()
+            self.check_btn3.deselect()
+            self.check_btn4.deselect()
+            for i in range (100,0,-1):
+                self.frame3_progress1['value'] = i
+                self.master.update_idletasks()
                 
         def progress_func2():
             for i in range (100):
                 self.frame3_progress2['value'] = i
                 self.master.update_idletasks()
+            self.entry_frame_2.delete(0, 'end')
+            self.entry2_frame_2.delete(0, 'end')
+            for i in range (100,0,-1):
+                self.frame3_progress2['value'] = i
+                self.master.update_idletasks()
                 
         def progress_func3():
             for i in range (100):
+                self.frame3_progress3['value'] = i
+                self.master.update_idletasks()
+            self.check_btn1.deselect()
+            self.check_btn2.deselect()
+            self.check_btn3.deselect()
+            self.check_btn4.deselect()
+            self.entry_frame_2.delete(0, 'end')
+            self.entry2_frame_2.delete(0, 'end')
+            for i in range (100,0,-1):
                 self.frame3_progress3['value'] = i
                 self.master.update_idletasks()
 
@@ -276,7 +297,7 @@ class HackApp:
 
                 send_value = count_secreate1 + count_secreate2 + count_secreate3 +count_secreate4
                 submit_message_1(send_value,g_min,g_max)
-                progress_func3()
+                
                 
             else:
                 submit_cancel_1()
